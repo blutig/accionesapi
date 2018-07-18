@@ -1,13 +1,14 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Cliente
@@ -34,8 +35,8 @@ public class Cliente   {
   private String telefono = null;
 
   public Cliente idCliente(String idCliente) {
-    this.idCliente = idCliente;
-    return this;
+	this.idCliente = idCliente;
+	return this;
   }
 
   /**
@@ -47,16 +48,16 @@ public class Cliente   {
 
 
   public String getIdCliente() {
-    return idCliente;
+	return idCliente;
   }
 
   public void setIdCliente(String idCliente) {
-    this.idCliente = idCliente;
+	this.idCliente = idCliente;
   }
 
   public Cliente nombres(String nombres) {
-    this.nombres = nombres;
-    return this;
+	this.nombres = nombres;
+	return this;
   }
 
   /**
@@ -68,16 +69,16 @@ public class Cliente   {
 
 
   public String getNombres() {
-    return nombres;
+	return nombres;
   }
 
   public void setNombres(String nombres) {
-    this.nombres = nombres;
+	this.nombres = nombres;
   }
 
   public Cliente apellidos(String apellidos) {
-    this.apellidos = apellidos;
-    return this;
+	this.apellidos = apellidos;
+	return this;
   }
 
   /**
@@ -89,16 +90,16 @@ public class Cliente   {
 
 
   public String getApellidos() {
-    return apellidos;
+	return apellidos;
   }
 
   public void setApellidos(String apellidos) {
-    this.apellidos = apellidos;
+	this.apellidos = apellidos;
   }
 
   public Cliente direccion(String direccion) {
-    this.direccion = direccion;
-    return this;
+	this.direccion = direccion;
+	return this;
   }
 
   /**
@@ -110,16 +111,16 @@ public class Cliente   {
 
 
   public String getDireccion() {
-    return direccion;
+	return direccion;
   }
 
   public void setDireccion(String direccion) {
-    this.direccion = direccion;
+	this.direccion = direccion;
   }
 
   public Cliente email(String email) {
-    this.email = email;
-    return this;
+	this.email = email;
+	return this;
   }
 
   /**
@@ -131,16 +132,16 @@ public class Cliente   {
 
 
   public String getEmail() {
-    return email;
+	return email;
   }
 
   public void setEmail(String email) {
-    this.email = email;
+	this.email = email;
   }
 
   public Cliente telefono(String telefono) {
-    this.telefono = telefono;
-    return this;
+	this.telefono = telefono;
+	return this;
   }
 
   /**
@@ -152,49 +153,49 @@ public class Cliente   {
 
 
   public String getTelefono() {
-    return telefono;
+	return telefono;
   }
 
   public void setTelefono(String telefono) {
-    this.telefono = telefono;
+	this.telefono = telefono;
   }
 
 
   @Override
   public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Cliente cliente = (Cliente) o;
-    return Objects.equals(this.idCliente, cliente.idCliente) &&
-        Objects.equals(this.nombres, cliente.nombres) &&
-        Objects.equals(this.apellidos, cliente.apellidos) &&
-        Objects.equals(this.direccion, cliente.direccion) &&
-        Objects.equals(this.email, cliente.email) &&
-        Objects.equals(this.telefono, cliente.telefono);
+	if (this == o) {
+	  return true;
+	}
+	if (o == null || getClass() != o.getClass()) {
+	  return false;
+	}
+	Cliente cliente = (Cliente) o;
+	return Objects.equals(this.idCliente, cliente.idCliente) &&
+		Objects.equals(this.nombres, cliente.nombres) &&
+		Objects.equals(this.apellidos, cliente.apellidos) &&
+		Objects.equals(this.direccion, cliente.direccion) &&
+		Objects.equals(this.email, cliente.email) &&
+		Objects.equals(this.telefono, cliente.telefono);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idCliente, nombres, apellidos, direccion, email, telefono);
+	return Objects.hash(idCliente, nombres, apellidos, direccion, email, telefono);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Cliente {\n");
-    
-    sb.append("    idCliente: ").append(toIndentedString(idCliente)).append("\n");
-    sb.append("    nombres: ").append(toIndentedString(nombres)).append("\n");
-    sb.append("    apellidos: ").append(toIndentedString(apellidos)).append("\n");
-    sb.append("    direccion: ").append(toIndentedString(direccion)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    telefono: ").append(toIndentedString(telefono)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	StringBuilder sb = new StringBuilder();
+	sb.append("class Cliente {\n");
+	
+	sb.append("	idCliente: ").append(toIndentedString(idCliente)).append("\n");
+	sb.append("	nombres: ").append(toIndentedString(nombres)).append("\n");
+	sb.append("	apellidos: ").append(toIndentedString(apellidos)).append("\n");
+	sb.append("	direccion: ").append(toIndentedString(direccion)).append("\n");
+	sb.append("	email: ").append(toIndentedString(email)).append("\n");
+	sb.append("	telefono: ").append(toIndentedString(telefono)).append("\n");
+	sb.append("}");
+	return sb.toString();
   }
 
   /**
@@ -202,10 +203,10 @@ public class Cliente   {
    * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+	if (o == null) {
+	  return "null";
+	}
+	return o.toString().replace("\n", "\n	");
   }
 }
 

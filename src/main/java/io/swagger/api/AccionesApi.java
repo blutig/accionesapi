@@ -25,36 +25,36 @@ import java.util.List;
 @Api(value = "acciones", description = "the acciones API")
 public interface AccionesApi {
 
-    @ApiOperation(value = "agrega una nueva acción", nickname = "agregarAccion", notes = "Agrega una nueva acción", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Acción creada"),
-        @ApiResponse(code = 400, message = "Objeto inválido"),
-        @ApiResponse(code = 409, message = "Existe un objeto con este id") })
-    @RequestMapping(value = "/acciones/{idAccion}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    ResponseEntity<Void> agregarAccion(@ApiParam(value = "id de la acción a agregar",required=true) @PathVariable("idAccion") String idAccion,@ApiParam(value = "Acción a agregar"  )  @Valid @RequestBody Accion accion);
+	@ApiOperation(value = "agrega una nueva acción", nickname = "agregarAccion", notes = "Agrega una nueva acción", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Acción creada"),
+		@ApiResponse(code = 400, message = "Objeto inválido"),
+		@ApiResponse(code = 409, message = "Existe un objeto con este id") })
+	@RequestMapping(value = "/acciones/{idAccion}",
+		produces = { "application/json" }, 
+		consumes = { "application/json" },
+		method = RequestMethod.POST)
+	ResponseEntity<Void> agregarAccion(@ApiParam(value = "id de la acción a agregar",required=true) @PathVariable("idAccion") String idAccion,@ApiParam(value = "Acción a agregar"  )  @Valid @RequestBody Accion accion);
 
 
-    @ApiOperation(value = "busca una acción por el id o todas las acciones", nickname = "buscarAccion", notes = "Ingresando un ID válido retorna los datos de una Acción ", response = Accion.class, tags={ "administradores","accionistas", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "devolver el resultado obtenido", response = Accion.class),
-        @ApiResponse(code = 400, message = "Parámetro incorrecto") })
-    @RequestMapping(value = "/acciones/{idAccion}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<Accion> buscarAccion(@ApiParam(value = "id de la acción a buscar",required=true) @PathVariable("idAccion") Long idAccion);
+	@ApiOperation(value = "busca una acción por el id o todas las acciones", nickname = "buscarAccion", notes = "Ingresando un ID válido retorna los datos de una Acción ", response = Accion.class, tags={ "administradores","accionistas", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "devolver el resultado obtenido", response = Accion.class),
+		@ApiResponse(code = 400, message = "Parámetro incorrecto") })
+	@RequestMapping(value = "/acciones/{idAccion}",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	ResponseEntity<Accion> buscarAccion(@ApiParam(value = "id de la acción a buscar",required=true) @PathVariable("idAccion") Long idAccion);
 
 
-    @ApiOperation(value = "Eliminar una acción", nickname = "eliminarAccion", notes = "Eliminar una acción", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 400, message = "ID no es válido"),
-        @ApiResponse(code = 404, message = "El ID no se encontró") })
-    @RequestMapping(value = "/acciones/{idAccion}",
-        produces = { "application/json" }, 
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> eliminarAccion(@ApiParam(value = "ID de la acción a eliminar",required=true) @PathVariable("idAccion") Integer idAccion);
+	@ApiOperation(value = "Eliminar una acción", nickname = "eliminarAccion", notes = "Eliminar una acción", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Ok"),
+		@ApiResponse(code = 400, message = "ID no es válido"),
+		@ApiResponse(code = 404, message = "El ID no se encontró") })
+	@RequestMapping(value = "/acciones/{idAccion}",
+		produces = { "application/json" }, 
+		method = RequestMethod.DELETE)
+	ResponseEntity<Void> eliminarAccion(@ApiParam(value = "ID de la acción a eliminar",required=true) @PathVariable("idAccion") Integer idAccion);
 
 }

@@ -24,40 +24,40 @@ import java.util.List;
 @Controller
 public class EmisorApiController implements EmisorApi {
 
-    private static final Logger log = LoggerFactory.getLogger(EmisorApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(EmisorApiController.class);
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    private final HttpServletRequest request;
+	private final HttpServletRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public EmisorApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+	@org.springframework.beans.factory.annotation.Autowired
+	public EmisorApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
 
-    public ResponseEntity<Void> agregarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor,@ApiParam(value = "torneo a agregar"  )  @Valid @RequestBody Emisor torneo) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
+	public ResponseEntity<Void> agregarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor,@ApiParam(value = "torneo a agregar"  )  @Valid @RequestBody Emisor torneo) {
+		String accept = request.getHeader("Accept");
+		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
-    public ResponseEntity<Emisor> buscarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Emisor>(objectMapper.readValue("{  \"apellido\" : \"Quintero\",  \"idEmisor\" : \"e1\",  \"nombre\" : \"Lina\"}", Emisor.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Emisor>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+	public ResponseEntity<Emisor> buscarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor) {
+		String accept = request.getHeader("Accept");
+		if (accept != null && accept.contains("application/json")) {
+			try {
+				return new ResponseEntity<Emisor>(objectMapper.readValue("{  \"apellido\" : \"Quintero\",  \"idEmisor\" : \"e1\",  \"nombre\" : \"Lina\"}", Emisor.class), HttpStatus.NOT_IMPLEMENTED);
+			} catch (IOException e) {
+				log.error("Couldn't serialize response for content type application/json", e);
+				return new ResponseEntity<Emisor>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 
-        return new ResponseEntity<Emisor>(HttpStatus.NOT_IMPLEMENTED);
-    }
+		return new ResponseEntity<Emisor>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
-    public ResponseEntity<Void> eliminarEmisor(@ApiParam(value = "id del emisor a eliminar",required=true) @PathVariable("idEmisor") String idEmisor) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
+	public ResponseEntity<Void> eliminarEmisor(@ApiParam(value = "id del emisor a eliminar",required=true) @PathVariable("idEmisor") String idEmisor) {
+		String accept = request.getHeader("Accept");
+		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
 }

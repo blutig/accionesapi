@@ -1,23 +1,25 @@
 package io.swagger.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Emisor;
 import java.math.BigDecimal;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.validation.annotation.Validated;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Accion
  */
 @Validated
 
-public class Accion   {
+public class Accion  extends ResourceSupport {
   @JsonProperty("idAccion")
   private Long idAccion = null;
 
@@ -37,8 +39,8 @@ public class Accion   {
   private BigDecimal valorEmision = null;
 
   public Accion idAccion(Long idAccion) {
-    this.idAccion = idAccion;
-    return this;
+	this.idAccion = idAccion;
+	return this;
   }
 
   /**
@@ -50,16 +52,16 @@ public class Accion   {
 
 
   public Long getIdAccion() {
-    return idAccion;
+	return idAccion;
   }
 
   public void setIdAccion(Long idAccion) {
-    this.idAccion = idAccion;
+	this.idAccion = idAccion;
   }
 
   public Accion nombre(String nombre) {
-    this.nombre = nombre;
-    return this;
+	this.nombre = nombre;
+	return this;
   }
 
   /**
@@ -71,16 +73,16 @@ public class Accion   {
 
 
   public String getNombre() {
-    return nombre;
+	return nombre;
   }
 
   public void setNombre(String nombre) {
-    this.nombre = nombre;
+	this.nombre = nombre;
   }
 
   public Accion emisor(Emisor emisor) {
-    this.emisor = emisor;
-    return this;
+	this.emisor = emisor;
+	return this;
   }
 
   /**
@@ -93,16 +95,16 @@ public class Accion   {
   @Valid
 
   public Emisor getEmisor() {
-    return emisor;
+	return emisor;
   }
 
   public void setEmisor(Emisor emisor) {
-    this.emisor = emisor;
+	this.emisor = emisor;
   }
 
   public Accion fechaEmision(OffsetDateTime fechaEmision) {
-    this.fechaEmision = fechaEmision;
-    return this;
+	this.fechaEmision = fechaEmision;
+	return this;
   }
 
   /**
@@ -115,16 +117,16 @@ public class Accion   {
   @Valid
 
   public OffsetDateTime getFechaEmision() {
-    return fechaEmision;
+	return fechaEmision;
   }
 
   public void setFechaEmision(OffsetDateTime fechaEmision) {
-    this.fechaEmision = fechaEmision;
+	this.fechaEmision = fechaEmision;
   }
 
   public Accion moneda(String moneda) {
-    this.moneda = moneda;
-    return this;
+	this.moneda = moneda;
+	return this;
   }
 
   /**
@@ -136,16 +138,16 @@ public class Accion   {
 
 
   public String getMoneda() {
-    return moneda;
+	return moneda;
   }
 
   public void setMoneda(String moneda) {
-    this.moneda = moneda;
+	this.moneda = moneda;
   }
 
   public Accion valorEmision(BigDecimal valorEmision) {
-    this.valorEmision = valorEmision;
-    return this;
+	this.valorEmision = valorEmision;
+	return this;
   }
 
   /**
@@ -158,49 +160,49 @@ public class Accion   {
   @Valid
 
   public BigDecimal getValorEmision() {
-    return valorEmision;
+	return valorEmision;
   }
 
   public void setValorEmision(BigDecimal valorEmision) {
-    this.valorEmision = valorEmision;
+	this.valorEmision = valorEmision;
   }
 
 
   @Override
   public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Accion accion = (Accion) o;
-    return Objects.equals(this.idAccion, accion.idAccion) &&
-        Objects.equals(this.nombre, accion.nombre) &&
-        Objects.equals(this.emisor, accion.emisor) &&
-        Objects.equals(this.fechaEmision, accion.fechaEmision) &&
-        Objects.equals(this.moneda, accion.moneda) &&
-        Objects.equals(this.valorEmision, accion.valorEmision);
+	if (this == o) {
+	  return true;
+	}
+	if (o == null || getClass() != o.getClass()) {
+	  return false;
+	}
+	Accion accion = (Accion) o;
+	return Objects.equals(this.idAccion, accion.idAccion) &&
+		Objects.equals(this.nombre, accion.nombre) &&
+		Objects.equals(this.emisor, accion.emisor) &&
+		Objects.equals(this.fechaEmision, accion.fechaEmision) &&
+		Objects.equals(this.moneda, accion.moneda) &&
+		Objects.equals(this.valorEmision, accion.valorEmision);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idAccion, nombre, emisor, fechaEmision, moneda, valorEmision);
+	return Objects.hash(idAccion, nombre, emisor, fechaEmision, moneda, valorEmision);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Accion {\n");
-    
-    sb.append("    idAccion: ").append(toIndentedString(idAccion)).append("\n");
-    sb.append("    nombre: ").append(toIndentedString(nombre)).append("\n");
-    sb.append("    emisor: ").append(toIndentedString(emisor)).append("\n");
-    sb.append("    fechaEmision: ").append(toIndentedString(fechaEmision)).append("\n");
-    sb.append("    moneda: ").append(toIndentedString(moneda)).append("\n");
-    sb.append("    valorEmision: ").append(toIndentedString(valorEmision)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	StringBuilder sb = new StringBuilder();
+	sb.append("class Accion {\n");
+	
+	sb.append("	idAccion: ").append(toIndentedString(idAccion)).append("\n");
+	sb.append("	nombre: ").append(toIndentedString(nombre)).append("\n");
+	sb.append("	emisor: ").append(toIndentedString(emisor)).append("\n");
+	sb.append("	fechaEmision: ").append(toIndentedString(fechaEmision)).append("\n");
+	sb.append("	moneda: ").append(toIndentedString(moneda)).append("\n");
+	sb.append("	valorEmision: ").append(toIndentedString(valorEmision)).append("\n");
+	sb.append("}");
+	return sb.toString();
   }
 
   /**
@@ -208,10 +210,10 @@ public class Accion   {
    * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+	if (o == null) {
+	  return "null";
+	}
+	return o.toString().replace("\n", "\n	");
   }
 }
 

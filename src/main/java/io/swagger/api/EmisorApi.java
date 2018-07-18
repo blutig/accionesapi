@@ -25,36 +25,36 @@ import java.util.List;
 @Api(value = "emisor", description = "the emisor API")
 public interface EmisorApi {
 
-    @ApiOperation(value = "agregar un nuevo emisor", nickname = "agregarEmisor", notes = "Agregar un nuevo emisor", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Emisor creado"),
-        @ApiResponse(code = 400, message = "objeto invalido"),
-        @ApiResponse(code = 409, message = "ya existe un emisor con este id") })
-    @RequestMapping(value = "/emisor/{idEmisor}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    ResponseEntity<Void> agregarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor,@ApiParam(value = "torneo a agregar"  )  @Valid @RequestBody Emisor torneo);
+	@ApiOperation(value = "agregar un nuevo emisor", nickname = "agregarEmisor", notes = "Agregar un nuevo emisor", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Emisor creado"),
+		@ApiResponse(code = 400, message = "objeto invalido"),
+		@ApiResponse(code = 409, message = "ya existe un emisor con este id") })
+	@RequestMapping(value = "/emisor/{idEmisor}",
+		produces = { "application/json" }, 
+		consumes = { "application/json" },
+		method = RequestMethod.POST)
+	ResponseEntity<Void> agregarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor,@ApiParam(value = "torneo a agregar"  )  @Valid @RequestBody Emisor torneo);
 
 
-    @ApiOperation(value = "busca emisor", nickname = "buscarEmisor", notes = "Enviando un id de emisor devuelve la informacion correspondiente a este ", response = Emisor.class, tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Emisor.class),
-        @ApiResponse(code = 400, message = "parametro incorrecto") })
-    @RequestMapping(value = "/emisor/{idEmisor}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<Emisor> buscarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor);
+	@ApiOperation(value = "busca emisor", nickname = "buscarEmisor", notes = "Enviando un id de emisor devuelve la informacion correspondiente a este ", response = Emisor.class, tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Emisor.class),
+		@ApiResponse(code = 400, message = "parametro incorrecto") })
+	@RequestMapping(value = "/emisor/{idEmisor}",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	ResponseEntity<Emisor> buscarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor);
 
 
-    @ApiOperation(value = "eliminar un emisor", nickname = "eliminarEmisor", notes = "Eliminar un emisor", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 400, message = "invalido id"),
-        @ApiResponse(code = 404, message = "id no encontrado") })
-    @RequestMapping(value = "/emisor/{idEmisor}",
-        produces = { "application/json" }, 
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> eliminarEmisor(@ApiParam(value = "id del emisor a eliminar",required=true) @PathVariable("idEmisor") String idEmisor);
+	@ApiOperation(value = "eliminar un emisor", nickname = "eliminarEmisor", notes = "Eliminar un emisor", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Ok"),
+		@ApiResponse(code = 400, message = "invalido id"),
+		@ApiResponse(code = 404, message = "id no encontrado") })
+	@RequestMapping(value = "/emisor/{idEmisor}",
+		produces = { "application/json" }, 
+		method = RequestMethod.DELETE)
+	ResponseEntity<Void> eliminarEmisor(@ApiParam(value = "id del emisor a eliminar",required=true) @PathVariable("idEmisor") String idEmisor);
 
 }

@@ -1,14 +1,15 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Accion;
-import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Dividendo
@@ -29,8 +30,8 @@ public class Dividendo   {
   private Integer monto = null;
 
   public Dividendo idDividendo(Integer idDividendo) {
-    this.idDividendo = idDividendo;
-    return this;
+	this.idDividendo = idDividendo;
+	return this;
   }
 
   /**
@@ -42,16 +43,16 @@ public class Dividendo   {
 
 
   public Integer getIdDividendo() {
-    return idDividendo;
+	return idDividendo;
   }
 
   public void setIdDividendo(Integer idDividendo) {
-    this.idDividendo = idDividendo;
+	this.idDividendo = idDividendo;
   }
 
   public Dividendo accion(Accion accion) {
-    this.accion = accion;
-    return this;
+	this.accion = accion;
+	return this;
   }
 
   /**
@@ -64,16 +65,16 @@ public class Dividendo   {
   @Valid
 
   public Accion getAccion() {
-    return accion;
+	return accion;
   }
 
   public void setAccion(Accion accion) {
-    this.accion = accion;
+	this.accion = accion;
   }
 
   public Dividendo fechaPago(String fechaPago) {
-    this.fechaPago = fechaPago;
-    return this;
+	this.fechaPago = fechaPago;
+	return this;
   }
 
   /**
@@ -85,16 +86,16 @@ public class Dividendo   {
 
 
   public String getFechaPago() {
-    return fechaPago;
+	return fechaPago;
   }
 
   public void setFechaPago(String fechaPago) {
-    this.fechaPago = fechaPago;
+	this.fechaPago = fechaPago;
   }
 
   public Dividendo monto(Integer monto) {
-    this.monto = monto;
-    return this;
+	this.monto = monto;
+	return this;
   }
 
   /**
@@ -106,45 +107,45 @@ public class Dividendo   {
 
 
   public Integer getMonto() {
-    return monto;
+	return monto;
   }
 
   public void setMonto(Integer monto) {
-    this.monto = monto;
+	this.monto = monto;
   }
 
 
   @Override
   public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Dividendo dividendo = (Dividendo) o;
-    return Objects.equals(this.idDividendo, dividendo.idDividendo) &&
-        Objects.equals(this.accion, dividendo.accion) &&
-        Objects.equals(this.fechaPago, dividendo.fechaPago) &&
-        Objects.equals(this.monto, dividendo.monto);
+	if (this == o) {
+	  return true;
+	}
+	if (o == null || getClass() != o.getClass()) {
+	  return false;
+	}
+	Dividendo dividendo = (Dividendo) o;
+	return Objects.equals(this.idDividendo, dividendo.idDividendo) &&
+		Objects.equals(this.accion, dividendo.accion) &&
+		Objects.equals(this.fechaPago, dividendo.fechaPago) &&
+		Objects.equals(this.monto, dividendo.monto);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idDividendo, accion, fechaPago, monto);
+	return Objects.hash(idDividendo, accion, fechaPago, monto);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Dividendo {\n");
-    
-    sb.append("    idDividendo: ").append(toIndentedString(idDividendo)).append("\n");
-    sb.append("    accion: ").append(toIndentedString(accion)).append("\n");
-    sb.append("    fechaPago: ").append(toIndentedString(fechaPago)).append("\n");
-    sb.append("    monto: ").append(toIndentedString(monto)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	StringBuilder sb = new StringBuilder();
+	sb.append("class Dividendo {\n");
+	
+	sb.append("	idDividendo: ").append(toIndentedString(idDividendo)).append("\n");
+	sb.append("	accion: ").append(toIndentedString(accion)).append("\n");
+	sb.append("	fechaPago: ").append(toIndentedString(fechaPago)).append("\n");
+	sb.append("	monto: ").append(toIndentedString(monto)).append("\n");
+	sb.append("}");
+	return sb.toString();
   }
 
   /**
@@ -152,10 +153,10 @@ public class Dividendo   {
    * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+	if (o == null) {
+	  return "null";
+	}
+	return o.toString().replace("\n", "\n	");
   }
 }
 

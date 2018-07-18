@@ -25,36 +25,36 @@ import java.util.List;
 @Api(value = "dividendo", description = "the dividendo API")
 public interface DividendoApi {
 
-    @ApiOperation(value = "agregar un dividendo", nickname = "adicionarDividendo", notes = "agregar un dividendo nuevo", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Dividendo Creado"),
-        @ApiResponse(code = 400, message = "Datos incorrectos"),
-        @ApiResponse(code = 409, message = "Ya existe el objeto") })
-    @RequestMapping(value = "/dividendo/{idDividendo}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    ResponseEntity<Void> adicionarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo,@ApiParam(value = "Información del dividendo"  )  @Valid @RequestBody Dividendo dividendo);
+	@ApiOperation(value = "agregar un dividendo", nickname = "adicionarDividendo", notes = "agregar un dividendo nuevo", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Dividendo Creado"),
+		@ApiResponse(code = 400, message = "Datos incorrectos"),
+		@ApiResponse(code = 409, message = "Ya existe el objeto") })
+	@RequestMapping(value = "/dividendo/{idDividendo}",
+		produces = { "application/json" }, 
+		consumes = { "application/json" },
+		method = RequestMethod.POST)
+	ResponseEntity<Void> adicionarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo,@ApiParam(value = "Información del dividendo"  )  @Valid @RequestBody Dividendo dividendo);
 
 
-    @ApiOperation(value = "buscar un dividendo", nickname = "buscarDividendo", notes = "ingresando un id válido se obtiene la información del dividendo ", response = Dividendo.class, tags={ "administradores","accionistas", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "dividendo encontrado", response = Dividendo.class),
-        @ApiResponse(code = 400, message = "no existe el dividendo") })
-    @RequestMapping(value = "/dividendo/{idDividendo}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<Dividendo> buscarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo);
+	@ApiOperation(value = "buscar un dividendo", nickname = "buscarDividendo", notes = "ingresando un id válido se obtiene la información del dividendo ", response = Dividendo.class, tags={ "administradores","accionistas", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "dividendo encontrado", response = Dividendo.class),
+		@ApiResponse(code = 400, message = "no existe el dividendo") })
+	@RequestMapping(value = "/dividendo/{idDividendo}",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	ResponseEntity<Dividendo> buscarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo);
 
 
-    @ApiOperation(value = "Eliminar un dividendo", nickname = "eliminarDividendo", notes = "Eliminar un dividendo", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 400, message = "id no válido"),
-        @ApiResponse(code = 404, message = "id no encontrado") })
-    @RequestMapping(value = "/dividendo/{idDividendo}",
-        produces = { "application/json" }, 
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> eliminarDividendo(@ApiParam(value = "ID del dividendo a eliminar",required=true) @PathVariable("idDividendo") Long idDividendo);
+	@ApiOperation(value = "Eliminar un dividendo", nickname = "eliminarDividendo", notes = "Eliminar un dividendo", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Ok"),
+		@ApiResponse(code = 400, message = "id no válido"),
+		@ApiResponse(code = 404, message = "id no encontrado") })
+	@RequestMapping(value = "/dividendo/{idDividendo}",
+		produces = { "application/json" }, 
+		method = RequestMethod.DELETE)
+	ResponseEntity<Void> eliminarDividendo(@ApiParam(value = "ID del dividendo a eliminar",required=true) @PathVariable("idDividendo") Long idDividendo);
 
 }

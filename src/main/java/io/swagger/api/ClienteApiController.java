@@ -24,40 +24,40 @@ import java.util.List;
 @Controller
 public class ClienteApiController implements ClienteApi {
 
-    private static final Logger log = LoggerFactory.getLogger(ClienteApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(ClienteApiController.class);
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    private final HttpServletRequest request;
+	private final HttpServletRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public ClienteApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+	@org.springframework.beans.factory.annotation.Autowired
+	public ClienteApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
 
-    public ResponseEntity<Void> agregarCliente(@ApiParam(value = "id del tliente a agregar",required=true) @PathVariable("idCliente") String idCliente,@ApiParam(value = "cliente a agregar"  )  @Valid @RequestBody Cliente cliente) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
+	public ResponseEntity<Void> agregarCliente(@ApiParam(value = "id del tliente a agregar",required=true) @PathVariable("idCliente") String idCliente,@ApiParam(value = "cliente a agregar"  )  @Valid @RequestBody Cliente cliente) {
+		String accept = request.getHeader("Accept");
+		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
-    public ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"apellidos\" : \"Vargas\",  \"idCliente\" : \"12345\",  \"direccion\" : \"Clle 1\",  \"telefono\" : \"123456789\",  \"email\" : \"cliente1@gmail.com\",  \"nombres\" : \"Rafael\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+	public ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente) {
+		String accept = request.getHeader("Accept");
+		if (accept != null && accept.contains("application/json")) {
+			try {
+				return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"apellidos\" : \"Vargas\",  \"idCliente\" : \"12345\",  \"direccion\" : \"Clle 1\",  \"telefono\" : \"123456789\",  \"email\" : \"cliente1@gmail.com\",  \"nombres\" : \"Rafael\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
+			} catch (IOException e) {
+				log.error("Couldn't serialize response for content type application/json", e);
+				return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 
-        return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
-    }
+		return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
-    public ResponseEntity<Void> eliminarCliente(@ApiParam(value = "id del cliente a eliminar",required=true) @PathVariable("idCliente") String idCliente) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
+	public ResponseEntity<Void> eliminarCliente(@ApiParam(value = "id del cliente a eliminar",required=true) @PathVariable("idCliente") String idCliente) {
+		String accept = request.getHeader("Accept");
+		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
 }

@@ -25,36 +25,36 @@ import java.util.List;
 @Api(value = "titulo", description = "the titulo API")
 public interface TituloApi {
 
-    @ApiOperation(value = "agregar un nuevo título", nickname = "agregarTitulo", notes = "Agregar un nuevo título", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Título creado"),
-        @ApiResponse(code = 400, message = "objeto invalido"),
-        @ApiResponse(code = 409, message = "ya existe un título con este id") })
-    @RequestMapping(value = "/titulo/{idTitulo}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    ResponseEntity<Void> agregarTitulo(@ApiParam(value = "id del título a agregar",required=true) @PathVariable("idTitulo") String idTitulo,@ApiParam(value = "título a agregar"  )  @Valid @RequestBody Titulo titulo);
+	@ApiOperation(value = "agregar un nuevo título", nickname = "agregarTitulo", notes = "Agregar un nuevo título", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Título creado"),
+		@ApiResponse(code = 400, message = "objeto invalido"),
+		@ApiResponse(code = 409, message = "ya existe un título con este id") })
+	@RequestMapping(value = "/titulo/{idTitulo}",
+		produces = { "application/json" }, 
+		consumes = { "application/json" },
+		method = RequestMethod.POST)
+	ResponseEntity<Void> agregarTitulo(@ApiParam(value = "id del título a agregar",required=true) @PathVariable("idTitulo") String idTitulo,@ApiParam(value = "título a agregar"  )  @Valid @RequestBody Titulo titulo);
 
 
-    @ApiOperation(value = "buscar títulos", nickname = "buscarTitulo", notes = "Enviando un id de título devuelve la informacion correspondiente a este ", response = Titulo.class, tags={ "administradores","accionistas", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Titulo.class),
-        @ApiResponse(code = 400, message = "parametro incorrecto") })
-    @RequestMapping(value = "/titulo/{idTitulo}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo);
+	@ApiOperation(value = "buscar títulos", nickname = "buscarTitulo", notes = "Enviando un id de título devuelve la informacion correspondiente a este ", response = Titulo.class, tags={ "administradores","accionistas", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Titulo.class),
+		@ApiResponse(code = 400, message = "parametro incorrecto") })
+	@RequestMapping(value = "/titulo/{idTitulo}",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo);
 
 
-    @ApiOperation(value = "eliminar un título", nickname = "eliminarTitulo", notes = "Eliminar un título", tags={ "administradores", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 400, message = "id de título inválido"),
-        @ApiResponse(code = 404, message = "id de título no encontrado") })
-    @RequestMapping(value = "/titulo/{idTitulo}",
-        produces = { "application/json" }, 
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo);
+	@ApiOperation(value = "eliminar un título", nickname = "eliminarTitulo", notes = "Eliminar un título", tags={ "administradores", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Ok"),
+		@ApiResponse(code = 400, message = "id de título inválido"),
+		@ApiResponse(code = 404, message = "id de título no encontrado") })
+	@RequestMapping(value = "/titulo/{idTitulo}",
+		produces = { "application/json" }, 
+		method = RequestMethod.DELETE)
+	ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo);
 
 }
