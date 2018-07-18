@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Validated
 
-public class Accion  extends ResourceSupport {
+public class Accion extends ResourceSupport {
   @JsonProperty("idAccion")
   private Long idAccion = null;
 

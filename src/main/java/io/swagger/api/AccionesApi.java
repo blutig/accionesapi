@@ -5,24 +5,28 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.Accion;
-import io.swagger.annotations.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.Accion;
+import io.swagger.model.Dividendo;
+import io.swagger.model.Titulo;
+
 @Api(value = "acciones", description = "the acciones API")
+@RequestMapping(value = "/acciones", produces = { "application/json" })
 public interface AccionesApi {
 
 	@ApiOperation(value = "agrega una nueva acción", nickname = "agregarAccion", notes = "Agrega una nueva acción", tags={ "administradores", })
@@ -30,19 +34,17 @@ public interface AccionesApi {
 		@ApiResponse(code = 201, message = "Acción creada"),
 		@ApiResponse(code = 400, message = "Objeto inválido"),
 		@ApiResponse(code = 409, message = "Existe un objeto con este id") })
-	@RequestMapping(value = "/acciones/{idAccion}",
-		produces = { "application/json" }, 
+	@RequestMapping(value = "/{idAccion}",
 		consumes = { "application/json" },
 		method = RequestMethod.POST)
-	ResponseEntity<Void> agregarAccion(@ApiParam(value = "id de la acción a agregar",required=true) @PathVariable("idAccion") String idAccion,@ApiParam(value = "Acción a agregar"  )  @Valid @RequestBody Accion accion);
+	ResponseEntity<Void> agregarAccion(@ApiParam(value = "id de la acción a agregar",required=true) @PathVariable("idAccion") Long idAccion, @ApiParam(value = "Acción a agregar") @Valid @RequestBody Accion accion);
 
 
 	@ApiOperation(value = "busca una acción por el id o todas las acciones", nickname = "buscarAccion", notes = "Ingresando un ID válido retorna los datos de una Acción ", response = Accion.class, tags={ "administradores","accionistas", })
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "devolver el resultado obtenido", response = Accion.class),
 		@ApiResponse(code = 400, message = "Parámetro incorrecto") })
-	@RequestMapping(value = "/acciones/{idAccion}",
-		produces = { "application/json" }, 
+	@RequestMapping(value = "/{idAccion}",
 		method = RequestMethod.GET)
 	ResponseEntity<Accion> buscarAccion(@ApiParam(value = "id de la acción a buscar",required=true) @PathVariable("idAccion") Long idAccion);
 
@@ -52,9 +54,26 @@ public interface AccionesApi {
 		@ApiResponse(code = 200, message = "Ok"),
 		@ApiResponse(code = 400, message = "ID no es válido"),
 		@ApiResponse(code = 404, message = "El ID no se encontró") })
-	@RequestMapping(value = "/acciones/{idAccion}",
-		produces = { "application/json" }, 
+	@RequestMapping(value = "/{idAccion}",
 		method = RequestMethod.DELETE)
-	ResponseEntity<Void> eliminarAccion(@ApiParam(value = "ID de la acción a eliminar",required=true) @PathVariable("idAccion") Integer idAccion);
+	ResponseEntity<Void> eliminarAccion(@ApiParam(value = "ID de la acción a eliminar",required=true) @PathVariable("idAccion") Long idAccion);
+
+
+	@ApiOperation(value = "Listar los Dividendos de la Acción", nickname = "listarDividendosAccion", notes = "accionistas devuelve la lista de los dividendos", response = List.class, tags={ "administradores","accionistas", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "devolver el resultado obtenido", response = List.class),
+		@ApiResponse(code = 400, message = "Parámetro incorrecto") })
+	@RequestMapping(value = "/{idAccion}/dividendos",
+		method = RequestMethod.GET)
+	@ResponseBody List<Dividendo> listarDividendosAccion(@ApiParam(value = "id de la acción para listar los dividendos",required=true) @PathVariable("idAccion") Long idAccion);
+
+
+	@ApiOperation(value = "Listar los Titulos de la Acción", nickname = "listarTitulosAccion", notes = "accionistas devuelve la lista de los títulos", response = List.class, tags={ "administradores","accionistas", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "devolver el resultado obtenido", response = List.class),
+		@ApiResponse(code = 400, message = "Parámetro incorrecto") })
+	@RequestMapping(value = "/{idAccion}/titulos",
+		method = RequestMethod.GET)
+	@ResponseBody List<Titulo> listarTitulosAccion(@ApiParam(value = "id de la acción para listar los títulos",required=true) @PathVariable("idAccion") Long idAccion);
 
 }
