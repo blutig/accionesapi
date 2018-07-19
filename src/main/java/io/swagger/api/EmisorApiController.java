@@ -1,25 +1,26 @@
 package io.swagger.api;
 
-import io.swagger.model.Emisor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.swagger.annotations.ApiParam;
+import io.swagger.model.Emisor;
 
 @Controller
 public class EmisorApiController implements EmisorApi {
@@ -36,28 +37,57 @@ public class EmisorApiController implements EmisorApi {
 		this.request = request;
 	}
 
-	public ResponseEntity<Void> agregarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor,@ApiParam(value = "torneo a agregar"  )  @Valid @RequestBody Emisor torneo) {
-		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	public ResponseEntity<Void> agregarEmisor(
+			@ApiParam(value = "id del emisor a buscar", required = true) @PathVariable("idEmisor") String idEmisor,
+			@ApiParam(value = "torneo a agregar") @Valid @RequestBody Emisor emisor) {
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(1000);
+		httpHeaders.set("Miheader", "valor x");
+
+		return new ResponseEntity<Void>(httpHeaders, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Emisor> buscarEmisor(@ApiParam(value = "id del emisor a buscar",required=true) @PathVariable("idEmisor") String idEmisor) {
-		String accept = request.getHeader("Accept");
-		if (accept != null && accept.contains("application/json")) {
-			try {
-				return new ResponseEntity<Emisor>(objectMapper.readValue("{  \"apellido\" : \"Quintero\",  \"idEmisor\" : \"e1\",  \"nombre\" : \"Lina\"}", Emisor.class), HttpStatus.NOT_IMPLEMENTED);
-			} catch (IOException e) {
-				log.error("Couldn't serialize response for content type application/json", e);
-				return new ResponseEntity<Emisor>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
+	public ResponseEntity<Emisor> buscarEmisor(
+			@ApiParam(value = "id del emisor a buscar", required = true) @PathVariable("idEmisor") String idEmisor) {
+		Emisor emisor = null;
+		HttpStatus status = null;
+		if(idEmisor.equals("e2")) {
+			emisor = new Emisor("e2", "Pedro", "Perez");
+			status = HttpStatus.OK;
+		}else {
+			status = HttpStatus.BAD_REQUEST;
 		}
-
-		return new ResponseEntity<Emisor>(HttpStatus.NOT_IMPLEMENTED);
+		// headers
+		HttpHeaders responseHeaders = new HttpHeaders();
+    	responseHeaders.setExpires(1000);
+    	responseHeaders.set("Miheader", "valor x");
+		return new ResponseEntity<Emisor>(emisor, responseHeaders, status);
 	}
 
-	public ResponseEntity<Void> eliminarEmisor(@ApiParam(value = "id del emisor a eliminar",required=true) @PathVariable("idEmisor") String idEmisor) {
-		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+	public ResponseEntity<Void> eliminarEmisor(
+			@ApiParam(value = "id del emisor a eliminar", required = true) @PathVariable("idEmisor") String idEmisor) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+    	responseHeaders.setExpires(1000);
+    	responseHeaders.set("Miheader", "valor x");
+
+		return new ResponseEntity<Void>(responseHeaders, HttpStatus.OK);
+	}
+
+	public List<Emisor> listarEmisores() {
+
+		List<Emisor> listEmisores = new LinkedList<Emisor>();
+
+		listEmisores.add(new Emisor("e4", "Maria", "Calvo"));
+		listEmisores.add(new Emisor("e5", "Antonia", "Perez"));
+		listEmisores.add(new Emisor("e6", "Ana", "Caldas"));
+		listEmisores.add(new Emisor("e7", "Alberto", "Castro"));
+
+		for (Emisor emisor : listEmisores) {
+			emisor.add(linkTo(EmisorApi.class).slash(emisor.getIdEmisor()).withSelfRel());
+		}
+		return listEmisores;
 	}
 
 }
