@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,13 +16,13 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Validated
 
-public class Cliente   {
+public class Cliente extends ResourceSupport{
   public Cliente() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-public Cliente(String idCliente, String nombres, String apellidos, String direccion, String email,
+  public Cliente(String idCliente, String nombres, String apellidos, String direccion, String email,
 			String telefono) {
 		super();
 		this.idCliente = idCliente;
@@ -32,7 +33,7 @@ public Cliente(String idCliente, String nombres, String apellidos, String direcc
 		this.telefono = telefono;
 	}
 
-@JsonProperty("idCliente")
+  @JsonProperty("idCliente")
   private String idCliente = null;
 
   @JsonProperty("nombres")

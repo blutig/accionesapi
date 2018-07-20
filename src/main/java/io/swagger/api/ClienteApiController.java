@@ -63,9 +63,9 @@ public class ClienteApiController implements ClienteApi {
 	private Cliente getCliente(String idCliente) {
 		Cliente cliente = new Cliente();
 		cliente.setIdCliente(idCliente);
-		cliente.setNombres("Pepito");
-		cliente.setApellidos("Perez");
-		cliente.setEmail("pepito@gmail.com");
+		cliente.setNombres("Pepito" + idCliente);
+		cliente.setApellidos("Perez" + idCliente);
+		cliente.setEmail("pepito"  + idCliente + "@gmail.com");
 		cliente.setTelefono("300123456");
 		cliente.setDireccion("Clle 1 # 2 - 3");
 		return cliente;
