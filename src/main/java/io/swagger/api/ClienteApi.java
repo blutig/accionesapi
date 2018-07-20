@@ -25,6 +25,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Api(value = "cliente", description = "the cliente API")
+@RequestMapping(value = "/cliente", produces = { "application/json" })
 public interface ClienteApi {
 
 	@ApiOperation(value = "agregar un nuevo cliente", nickname = "agregarCliente", notes = "Agregar un nuevo cliente", tags={ "administradores", })
@@ -32,7 +33,7 @@ public interface ClienteApi {
 		@ApiResponse(code = 201, message = "Cliente creado"),
 		@ApiResponse(code = 400, message = "objeto invalido"),
 		@ApiResponse(code = 409, message = "ya existe un cliente con este id") })
-	@RequestMapping(value = "/cliente/{idCliente}",
+	@RequestMapping(value = "/{idCliente}",
 		produces = { "application/json" }, 
 		consumes = { "application/json" },
 		method = RequestMethod.POST)
@@ -43,7 +44,7 @@ public interface ClienteApi {
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Cliente.class),
 		@ApiResponse(code = 400, message = "parametro incorrecto") })
-	@RequestMapping(value = "/cliente/{idCliente}",
+	@RequestMapping(value = "/{idCliente}",
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente);
@@ -52,7 +53,7 @@ public interface ClienteApi {
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
 		@ApiResponse(code = 400, message = "Objeto invalido") })
-	@RequestMapping(value = "/clientes",
+	@RequestMapping(value = "",
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	@ResponseBody List<Cliente> listarClientes();

@@ -22,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,6 +90,9 @@ public class ClienteApiController implements ClienteApi {
 		listClientes.add(new Cliente("ID2", "Pepito2", "Perez2", "Clle 1 # 2 - 2", "pepito2@gmailcom", "123456789"));
 		listClientes.add(new Cliente("ID3", "Pepito2", "Perez3", "Clle 1 # 2 - 2", "pepito3@gmailcom", "123456789"));
 		listClientes.add(new Cliente("ID4", "Pepito2", "Perez4", "Clle 1 # 2 - 2", "pepito4@gmailcom", "123456789"));
+		for (Cliente cliente : listClientes) {
+			cliente.add(linkTo(ClienteApi.class).slash(cliente.getIdCliente()).withSelfRel());
+		}
 		return listClientes;
 	}
 
