@@ -137,7 +137,7 @@ public class AccionesApiController implements AccionesApi {
 		listDividendos.add(dividendo3);
 
 		for (Dividendo dividendo : listDividendos) {
-			dividendo.add(linkTo(DividendoApi.class).slash(dividendo.getIdDividendo()).withSelfRel());
+			//dividendo.add(linkTo(DividendoApi.class).slash(dividendo.getIdDividendo()).withSelfRel());
 		}
 		return listDividendos;
 	}
@@ -177,7 +177,7 @@ public class AccionesApiController implements AccionesApi {
 		listTitulos.add(titulo2);
 
 		for (Titulo titulo : listTitulos) {
-			titulo.add(linkTo(TituloApi.class).slash(titulo.getIdTitulo()).withSelfRel());
+			//titulo.add(linkTo(TituloApi.class).slash(titulo.getIdTitulo()).withSelfRel());
 		}
 		return listTitulos;
 	}

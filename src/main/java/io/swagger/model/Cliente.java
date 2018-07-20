@@ -16,7 +16,23 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 
 public class Cliente   {
-  @JsonProperty("idCliente")
+  public Cliente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+public Cliente(String idCliente, String nombres, String apellidos, String direccion, String email,
+			String telefono) {
+		super();
+		this.idCliente = idCliente;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.email = email;
+		this.telefono = telefono;
+	}
+
+@JsonProperty("idCliente")
   private String idCliente = null;
 
   @JsonProperty("nombres")

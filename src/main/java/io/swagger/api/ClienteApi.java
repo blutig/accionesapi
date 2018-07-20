@@ -6,6 +6,7 @@
 package io.swagger.api;
 
 import io.swagger.model.Cliente;
+import io.swagger.model.Titulo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -45,6 +47,15 @@ public interface ClienteApi {
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente);
+	
+	@ApiOperation(value = "listar todos los clientes", nickname = "listarClientes", notes = "Enviando un id de cliente devuelve la informacion correspondiente a este ", response = Cliente.class, tags={ "administradores"})
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
+		@ApiResponse(code = 400, message = "Objeto invalido") })
+	@RequestMapping(value = "/clientes",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	@ResponseBody List<Cliente> listarClientes();
 
 
 	@ApiOperation(value = "eliminar un cliente", nickname = "eliminarCliente", notes = "Eliminar un cliente", tags={ "administradores", })

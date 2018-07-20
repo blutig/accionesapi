@@ -1,10 +1,14 @@
 package io.swagger.api;
 
+import io.swagger.model.Accion;
 import io.swagger.model.Cliente;
+import io.swagger.model.Emisor;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -38,26 +43,51 @@ public class ClienteApiController implements ClienteApi {
 
 	public ResponseEntity<Void> agregarCliente(@ApiParam(value = "id del tliente a agregar",required=true) @PathVariable("idCliente") String idCliente,@ApiParam(value = "cliente a agregar"  )  @Valid @RequestBody Cliente cliente) {
 		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
+		httpHeaders.set("Accept", accept);
+
+		return new ResponseEntity<Void>(httpHeaders, HttpStatus.OK);
 	}
 
 	public ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente) {
-		String accept = request.getHeader("Accept");
-		if (accept != null && accept.contains("application/json")) {
-			try {
-				return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"apellidos\" : \"Vargas\",  \"idCliente\" : \"12345\",  \"direccion\" : \"Clle 1\",  \"telefono\" : \"123456789\",  \"email\" : \"cliente1@gmail.com\",  \"nombres\" : \"Rafael\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-			} catch (IOException e) {
-				log.error("Couldn't serialize response for content type application/json", e);
-				return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
+		Cliente cliente = getCliente(idCliente);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
 
-		return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<Cliente>(cliente, httpHeaders, HttpStatus.OK);
+	}
+
+	private Cliente getCliente(String idCliente) {
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(idCliente);
+		cliente.setNombres("Pepito");
+		cliente.setApellidos("Perez");
+		cliente.setEmail("pepito@gmail.com");
+		cliente.setTelefono("300123456");
+		cliente.setDireccion("Clle 1 # 2 - 3");
+		return cliente;
 	}
 
 	public ResponseEntity<Void> eliminarCliente(@ApiParam(value = "id del cliente a eliminar",required=true) @PathVariable("idCliente") String idCliente) {
 		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
+		httpHeaders.set("Accept", accept);
+		return new ResponseEntity<Void>(httpHeaders, HttpStatus.OK);
+	}
+
+	@Override
+	public List<Cliente> listarClientes() {
+		List<Cliente> listClientes = new LinkedList<Cliente>();
+		listClientes.add(new Cliente("ID1", "Pepito1", "Perez1", "Clle 1 # 2 - 2", "pepito1@gmailcom", "123456789"));
+		listClientes.add(new Cliente("ID2", "Pepito2", "Perez2", "Clle 1 # 2 - 2", "pepito2@gmailcom", "123456789"));
+		listClientes.add(new Cliente("ID3", "Pepito2", "Perez3", "Clle 1 # 2 - 2", "pepito3@gmailcom", "123456789"));
+		listClientes.add(new Cliente("ID4", "Pepito2", "Perez4", "Clle 1 # 2 - 2", "pepito4@gmailcom", "123456789"));
+		return listClientes;
 	}
 
 }
