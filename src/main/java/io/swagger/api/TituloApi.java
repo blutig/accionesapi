@@ -5,6 +5,8 @@
  */
 package io.swagger.api;
 
+import io.swagger.model.Accion;
+import io.swagger.model.Cliente;
 import io.swagger.model.Titulo;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -23,6 +26,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Api(value = "titulo", description = "the titulo API")
+@RequestMapping(value = "/titulo", produces = { "application/json" })
 public interface TituloApi {
 
 	@ApiOperation(value = "agregar un nuevo título", nickname = "agregarTitulo", notes = "Agregar un nuevo título", tags={ "administradores", })
@@ -30,7 +34,7 @@ public interface TituloApi {
 		@ApiResponse(code = 201, message = "Título creado"),
 		@ApiResponse(code = 400, message = "objeto invalido"),
 		@ApiResponse(code = 409, message = "ya existe un título con este id") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		consumes = { "application/json" },
 		method = RequestMethod.POST)
@@ -41,7 +45,7 @@ public interface TituloApi {
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Titulo.class),
 		@ApiResponse(code = 400, message = "parametro incorrecto") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo);
@@ -52,9 +56,26 @@ public interface TituloApi {
 		@ApiResponse(code = 200, message = "Ok"),
 		@ApiResponse(code = 400, message = "id de título inválido"),
 		@ApiResponse(code = 404, message = "id de título no encontrado") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.DELETE)
 	ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo);
-
+	
+	@ApiOperation(value = "listar los títulos", nickname = "listarTitulos", notes = "Listar los títulos", tags={ "administradores", })
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
+			@ApiResponse(code = 400, message = "Objeto invalido") })
+	@RequestMapping(value = "",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	@ResponseBody List<Titulo> listarTitulos();
+	
+	@ApiOperation(value = "listar la accion del títulos", nickname = "listarTitulos", notes = "Listar los títulos", tags={ "administradores", })
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
+			@ApiResponse(code = 400, message = "Objeto invalido") })
+	@RequestMapping(value = "",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	@ResponseBody Accion listarAcionTitulo();
 }

@@ -52,12 +52,12 @@ public class EmisorApiController implements EmisorApi {
 			@ApiParam(value = "id del emisor a buscar", required = true) @PathVariable("idEmisor") String idEmisor) {
 		Emisor emisor = null;
 		HttpStatus status = null;
-		if(idEmisor.equals("e2")) {
-			emisor = new Emisor("e2", "Pedro", "Perez");
+		//if(idEmisor.equals("e2")) {
+			emisor = new Emisor(idEmisor, "Pedro", "Perez");
 			status = HttpStatus.OK;
-		}else {
-			status = HttpStatus.BAD_REQUEST;
-		}
+		//}else {
+		//	status = HttpStatus.BAD_REQUEST;
+		//}
 		// headers
 		HttpHeaders responseHeaders = new HttpHeaders();
     	responseHeaders.setExpires(1000);

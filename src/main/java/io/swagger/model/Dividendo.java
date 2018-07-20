@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Validated
 
-public class Dividendo   {
+public class Dividendo extends ResourceSupport{
   @JsonProperty("idDividendo")
   private Integer idDividendo = null;
 

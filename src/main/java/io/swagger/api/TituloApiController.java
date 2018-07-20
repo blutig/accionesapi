@@ -1,10 +1,15 @@
 package io.swagger.api;
 
+import io.swagger.model.Accion;
+import io.swagger.model.Cliente;
+import io.swagger.model.Emisor;
 import io.swagger.model.Titulo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,11 +19,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.threeten.bp.OffsetDateTime;
 
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -38,26 +50,92 @@ public class TituloApiController implements TituloApi {
 
 	public ResponseEntity<Void> agregarTitulo(@ApiParam(value = "id del título a agregar",required=true) @PathVariable("idTitulo") String idTitulo,@ApiParam(value = "título a agregar"  )  @Valid @RequestBody Titulo titulo) {
 		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
+		httpHeaders.set("Accept", accept);
+
+		return new ResponseEntity<Void>(httpHeaders, HttpStatus.OK);
 	}
 
 	public ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo) {
-		String accept = request.getHeader("Accept");
-		if (accept != null && accept.contains("application/json")) {
-			try {
-				return new ResponseEntity<Titulo>(objectMapper.readValue("{  \"accion\" : {	\"valorEmision\" : 15000.0,	\"idAccion\" : 12345,	\"moneda\" : \"COP\",	\"fechaEmision\" : \"2018-07-17T08:31:33.001Z\",	\"nombre\" : \"Porcína Gagoquivavel\",	\"emisor\" : {	  \"apellido\" : \"Quintero\",	  \"idEmisor\" : \"e1\",	  \"nombre\" : \"Lina\"	}  },  \"cliente\" : {	\"apellidos\" : \"Vargas\",	\"idCliente\" : \"12345\",	\"direccion\" : \"Clle 1\",	\"telefono\" : \"123456789\",	\"email\" : \"cliente1@gmail.com\",	\"nombres\" : \"Rafael\"  },  \"fechaCompra\" : \"2016-08-29T09:12:33.001Z\",  \"estado\" : \"Activo\",  \"nominal\" : 1000,  \"valorCompra\" : 2000,  \"idTitulo\" : \"t1\"}", Titulo.class), HttpStatus.NOT_IMPLEMENTED);
-			} catch (IOException e) {
-				log.error("Couldn't serialize response for content type application/json", e);
-				return new ResponseEntity<Titulo>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
+		Titulo titulo = getTitulo(idTitulo);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
+		return new ResponseEntity<Titulo>(titulo, httpHeaders, HttpStatus.OK);
+	}
 
-		return new ResponseEntity<Titulo>(HttpStatus.NOT_IMPLEMENTED);
+	private Titulo getTitulo(String idTitulo) {
+		Titulo titulo = new Titulo();
+		titulo.setEstado("Activo");
+		titulo.setFechaCompra((new Date()).toString());
+		titulo.setIdTitulo(idTitulo);
+		titulo.setNominal((long) 12345);
+		titulo.setValorCompra((long) 1547800);
+		
+		Cliente cliente = new Cliente("ID1", "Pepito1", "Perez1", "Clle 1 # 2 - 2", "pepito1@gmailcom", "123456789");
+		cliente.add(linkTo(ClienteApi.class).slash(cliente.getIdCliente()).withSelfRel());
+		titulo.setCliente(cliente);
+		Accion accion = getAccion((long) 12345);
+		titulo.setAccion(accion);
+		return titulo;
+	}
+	
+	private Accion getAccion(Long idAccion) {
+		Emisor emisor = new Emisor();
+		emisor.setIdEmisor("N5784125");
+		emisor.setNombre("Carlos");
+		emisor.setApellido("Pelaez");		
+		emisor.add(linkTo(EmisorApi.class).slash(emisor.getIdEmisor()).withSelfRel());
+		
+		Accion accion = new Accion();
+		accion.setIdAccion(idAccion);
+		accion.setNombre("Acción " + idAccion);
+		accion.setEmisor(emisor);
+		accion.setFechaEmision(OffsetDateTime.now());
+		accion.setMoneda("COP");
+		accion.setValorEmision(new BigDecimal("15400"));
+		
+		accion.add(linkTo(AccionesApi.class).slash(accion.getIdAccion()).withSelfRel());
+		
+		accion.add(linkTo(ControllerLinkBuilder.methodOn(AccionesApi.class).listarDividendosAccion(idAccion))
+				.withRel("dividendos"));
+
+		accion.add(linkTo(ControllerLinkBuilder.methodOn(AccionesApi.class).listarTitulosAccion(idAccion))
+				.withRel("titulo"));
+
+		return accion;
 	}
 
 	public ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo) {
 		String accept = request.getHeader("Accept");
-		return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
+		httpHeaders.set("Accept", accept);
+
+		return new ResponseEntity<Void>(httpHeaders, HttpStatus.OK);
+	}
+
+	@Override
+	public List<Titulo> listarTitulos() {
+		List<Titulo> listTitulos = new LinkedList<Titulo>();
+		listTitulos.add(getTitulo("titulo1"));
+		listTitulos.add(getTitulo("titulo2"));
+		listTitulos.add(getTitulo("titulo3"));
+		for (Titulo titulo : listTitulos) {
+			titulo.add(linkTo(Titulo.class).slash(titulo.getIdTitulo()).withSelfRel());
+		}
+		return listTitulos;
+	}
+
+	@Override
+	public Accion listarAcionTitulo() {
+		Accion accion = new Accion();
+		return accion;
 	}
 
 }
+
