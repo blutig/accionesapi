@@ -1,10 +1,14 @@
 package io.swagger.api;
 
+import io.swagger.model.Cliente;
 import io.swagger.model.Dividendo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.configuration.Utilities;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,16 +47,12 @@ public class DividendoApiController implements DividendoApi {
 
 	public ResponseEntity<Dividendo> buscarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo) {
 		String accept = request.getHeader("Accept");
-		if (accept != null && accept.contains("application/json")) {
-			try {
-				return new ResponseEntity<Dividendo>(objectMapper.readValue("{  \"accion\" : {	\"valorEmision\" : 15000.0,	\"idAccion\" : 12345,	\"moneda\" : \"COP\",	\"fechaEmision\" : \"2018-07-17T08:31:33.001Z\",	\"nombre\" : \"Porcína Gagoquivavel\",	\"emisor\" : {	  \"apellido\" : \"Quintero\",	  \"idEmisor\" : \"e1\",	  \"nombre\" : \"Lina\"	}  },  \"monto\" : 200,  \"idDividendo\" : 123,  \"fechaPago\" : \"2016-08-29T09:12:33.001Z\"}", Dividendo.class), HttpStatus.NOT_IMPLEMENTED);
-			} catch (IOException e) {
-				log.error("Couldn't serialize response for content type application/json", e);
-				return new ResponseEntity<Dividendo>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
+		Dividendo dividendo = Utilities.getDividendo(1);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setExpires(2000);
+		httpHeaders.set("Content-Type", "application/json");
 
-		return new ResponseEntity<Dividendo>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<Dividendo>(dividendo, httpHeaders, HttpStatus.OK);
 	}
 
 	public ResponseEntity<Void> eliminarDividendo(@ApiParam(value = "ID del dividendo a eliminar",required=true) @PathVariable("idDividendo") Long idDividendo) {

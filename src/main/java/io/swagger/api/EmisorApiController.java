@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.ApiParam;
+import io.swagger.configuration.Utilities;
 import io.swagger.model.Emisor;
 
 @Controller
@@ -50,15 +51,9 @@ public class EmisorApiController implements EmisorApi {
 
 	public ResponseEntity<Emisor> buscarEmisor(
 			@ApiParam(value = "id del emisor a buscar", required = true) @PathVariable("idEmisor") String idEmisor) {
-		Emisor emisor = null;
+		Emisor emisor = Utilities.getEmisor("Emisor1");
 		HttpStatus status = null;
-		//if(idEmisor.equals("e2")) {
-			emisor = new Emisor(idEmisor, "Pedro", "Perez");
-			status = HttpStatus.OK;
-		//}else {
-		//	status = HttpStatus.BAD_REQUEST;
-		//}
-		// headers
+		status = HttpStatus.OK;
 		HttpHeaders responseHeaders = new HttpHeaders();
     	responseHeaders.setExpires(1000);
     	responseHeaders.set("Miheader", "valor x");

@@ -6,6 +6,8 @@ import io.swagger.model.Emisor;
 import io.swagger.model.Titulo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.configuration.Utilities;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -60,53 +62,11 @@ public class TituloApiController implements TituloApi {
 	}
 
 	public ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo) {
-		Titulo titulo = getTitulo(idTitulo);
+		Titulo titulo = Utilities.getTitulo(idTitulo);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setExpires(2000);
 		httpHeaders.set("Content-Type", "application/json");
 		return new ResponseEntity<Titulo>(titulo, httpHeaders, HttpStatus.OK);
-	}
-
-	private Titulo getTitulo(String idTitulo) {
-		Titulo titulo = new Titulo();
-		titulo.setEstado("Activo");
-		titulo.setFechaCompra((new Date()).toString());
-		titulo.setIdTitulo(idTitulo);
-		titulo.setNominal((long) 12345);
-		titulo.setValorCompra((long) 1547800);
-		
-		Cliente cliente = new Cliente("ID1", "Pepito1", "Perez1", "Clle 1 # 2 - 2", "pepito1@gmailcom", "123456789");
-		cliente.add(linkTo(ClienteApi.class).slash(cliente.getIdCliente()).withSelfRel());
-		titulo.setCliente(cliente);
-		Accion accion = getAccion((long) 12345);
-		titulo.setAccion(accion);
-		return titulo;
-	}
-	
-	private Accion getAccion(Long idAccion) {
-		Emisor emisor = new Emisor();
-		emisor.setIdEmisor("N5784125");
-		emisor.setNombre("Carlos");
-		emisor.setApellido("Pelaez");		
-		emisor.add(linkTo(EmisorApi.class).slash(emisor.getIdEmisor()).withSelfRel());
-		
-		Accion accion = new Accion();
-		accion.setIdAccion(idAccion);
-		accion.setNombre("Acción " + idAccion);
-		accion.setEmisor(emisor);
-		accion.setFechaEmision(OffsetDateTime.now());
-		accion.setMoneda("COP");
-		accion.setValorEmision(new BigDecimal("15400"));
-		
-		accion.add(linkTo(AccionesApi.class).slash(accion.getIdAccion()).withSelfRel());
-		
-		accion.add(linkTo(ControllerLinkBuilder.methodOn(AccionesApi.class).listarDividendosAccion(idAccion))
-				.withRel("dividendos"));
-
-		accion.add(linkTo(ControllerLinkBuilder.methodOn(AccionesApi.class).listarTitulosAccion(idAccion))
-				.withRel("titulo"));
-
-		return accion;
 	}
 
 	public ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo) {
@@ -122,19 +82,10 @@ public class TituloApiController implements TituloApi {
 	@Override
 	public List<Titulo> listarTitulos() {
 		List<Titulo> listTitulos = new LinkedList<Titulo>();
-		listTitulos.add(getTitulo("titulo1"));
-		listTitulos.add(getTitulo("titulo2"));
-		listTitulos.add(getTitulo("titulo3"));
-		for (Titulo titulo : listTitulos) {
-			titulo.add(linkTo(Titulo.class).slash(titulo.getIdTitulo()).withSelfRel());
-		}
+		listTitulos.add(Utilities.getTitulo("titulo1"));
+		listTitulos.add(Utilities.getTitulo("titulo2"));
+		listTitulos.add(Utilities.getTitulo("titulo3"));
 		return listTitulos;
-	}
-
-	@Override
-	public Accion listarAcionTitulo() {
-		Accion accion = new Accion();
-		return accion;
 	}
 
 }

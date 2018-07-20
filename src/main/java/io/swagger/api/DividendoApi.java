@@ -23,6 +23,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Api(value = "dividendo", description = "the dividendo API")
+@RequestMapping(value = "/dividendo", produces = { "application/json" })
 public interface DividendoApi {
 
 	@ApiOperation(value = "agregar un dividendo", nickname = "adicionarDividendo", notes = "agregar un dividendo nuevo", tags={ "administradores", })
@@ -30,7 +31,7 @@ public interface DividendoApi {
 		@ApiResponse(code = 201, message = "Dividendo Creado"),
 		@ApiResponse(code = 400, message = "Datos incorrectos"),
 		@ApiResponse(code = 409, message = "Ya existe el objeto") })
-	@RequestMapping(value = "/dividendo/{idDividendo}",
+	@RequestMapping(value = "/{idDividendo}",
 		produces = { "application/json" }, 
 		consumes = { "application/json" },
 		method = RequestMethod.POST)
@@ -41,7 +42,7 @@ public interface DividendoApi {
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "dividendo encontrado", response = Dividendo.class),
 		@ApiResponse(code = 400, message = "no existe el dividendo") })
-	@RequestMapping(value = "/dividendo/{idDividendo}",
+	@RequestMapping(value = "/{idDividendo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	ResponseEntity<Dividendo> buscarDividendo(@ApiParam(value = "id del dividendo a buscar",required=true) @PathVariable("idDividendo") Long idDividendo);
@@ -52,7 +53,7 @@ public interface DividendoApi {
 		@ApiResponse(code = 200, message = "Ok"),
 		@ApiResponse(code = 400, message = "id no válido"),
 		@ApiResponse(code = 404, message = "id no encontrado") })
-	@RequestMapping(value = "/dividendo/{idDividendo}",
+	@RequestMapping(value = "/{idDividendo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.DELETE)
 	ResponseEntity<Void> eliminarDividendo(@ApiParam(value = "ID del dividendo a eliminar",required=true) @PathVariable("idDividendo") Long idDividendo);

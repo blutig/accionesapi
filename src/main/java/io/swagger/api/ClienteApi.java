@@ -49,7 +49,7 @@ public interface ClienteApi {
 		method = RequestMethod.GET)
 	ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente);
 	
-	@ApiOperation(value = "listar todos los clientes", nickname = "listarClientes", notes = "Enviando un id de cliente devuelve la informacion correspondiente a este ", response = Cliente.class, tags={ "administradores"})
+	@ApiOperation(value = "listar todos los clientes", nickname = "listarClientes", notes = "Devuelve la informacion correspondiente a todos los clientes ", response = Cliente.class, tags={ "administradores"})
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
 		@ApiResponse(code = 400, message = "Objeto invalido") })
@@ -57,6 +57,15 @@ public interface ClienteApi {
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	@ResponseBody List<Cliente> listarClientes();
+	
+	@ApiOperation(value = "listar los titulos de un cliente", nickname = "listarTituloCliente", notes = "Enviando un id de cliente devuelve la informacion de los titulos asociados a este cliente ", response = Cliente.class, tags={ "administradores"})
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
+		@ApiResponse(code = 400, message = "Objeto invalido") })
+	@RequestMapping(value = "/{idCliente}/titulos",
+		produces = { "application/json" }, 
+		method = RequestMethod.GET)
+	@ResponseBody List<Titulo> listarTitulosCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente);
 
 
 	@ApiOperation(value = "eliminar un cliente", nickname = "eliminarCliente", notes = "Eliminar un cliente", tags={ "administradores", })

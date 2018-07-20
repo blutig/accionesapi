@@ -70,12 +70,4 @@ public interface TituloApi {
 		method = RequestMethod.GET)
 	@ResponseBody List<Titulo> listarTitulos();
 	
-	@ApiOperation(value = "listar la accion del títulos", nickname = "listarTitulos", notes = "Listar los títulos", tags={ "administradores", })
-	@ApiResponses(value = { 
-			@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = List.class),
-			@ApiResponse(code = 400, message = "Objeto invalido") })
-	@RequestMapping(value = "",
-		produces = { "application/json" }, 
-		method = RequestMethod.GET)
-	@ResponseBody Accion listarAcionTitulo();
 }

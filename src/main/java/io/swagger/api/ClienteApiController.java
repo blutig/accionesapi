@@ -3,9 +3,12 @@ package io.swagger.api;
 import io.swagger.model.Accion;
 import io.swagger.model.Cliente;
 import io.swagger.model.Emisor;
+import io.swagger.model.Titulo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.configuration.Utilities;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,23 +59,12 @@ public class ClienteApiController implements ClienteApi {
 	}
 
 	public ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "id del cliente a buscar",required=true) @PathVariable("idCliente") String idCliente) {
-		Cliente cliente = getCliente(idCliente);
+		Cliente cliente = Utilities.getCliente(idCliente);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setExpires(2000);
 		httpHeaders.set("Content-Type", "application/json");
 
 		return new ResponseEntity<Cliente>(cliente, httpHeaders, HttpStatus.OK);
-	}
-
-	private Cliente getCliente(String idCliente) {
-		Cliente cliente = new Cliente();
-		cliente.setIdCliente(idCliente);
-		cliente.setNombres("Pepito" + idCliente);
-		cliente.setApellidos("Perez" + idCliente);
-		cliente.setEmail("pepito"  + idCliente + "@gmail.com");
-		cliente.setTelefono("300123456");
-		cliente.setDireccion("Clle 1 # 2 - 3");
-		return cliente;
 	}
 
 	public ResponseEntity<Void> eliminarCliente(@ApiParam(value = "id del cliente a eliminar",required=true) @PathVariable("idCliente") String idCliente) {
@@ -86,14 +79,20 @@ public class ClienteApiController implements ClienteApi {
 	@Override
 	public List<Cliente> listarClientes() {
 		List<Cliente> listClientes = new LinkedList<Cliente>();
-		listClientes.add(new Cliente("ID1", "Pepito1", "Perez1", "Clle 1 # 2 - 2", "pepito1@gmailcom", "123456789"));
-		listClientes.add(new Cliente("ID2", "Pepito2", "Perez2", "Clle 1 # 2 - 2", "pepito2@gmailcom", "123456789"));
-		listClientes.add(new Cliente("ID3", "Pepito2", "Perez3", "Clle 1 # 2 - 2", "pepito3@gmailcom", "123456789"));
-		listClientes.add(new Cliente("ID4", "Pepito2", "Perez4", "Clle 1 # 2 - 2", "pepito4@gmailcom", "123456789"));
-		for (Cliente cliente : listClientes) {
-			cliente.add(linkTo(ClienteApi.class).slash(cliente.getIdCliente()).withSelfRel());
-		}
+		listClientes.add(Utilities.getCliente("ID1"));
+		listClientes.add(Utilities.getCliente("ID2"));
+		listClientes.add(Utilities.getCliente("ID3"));
+		listClientes.add(Utilities.getCliente("ID4"));
 		return listClientes;
+	}
+
+	@Override
+	public List<Titulo> listarTitulosCliente(String idCliente) {
+		List<Titulo> listTitulos = new LinkedList<Titulo>();
+		listTitulos.add(Utilities.getTitulo("Titulo1"));
+		listTitulos.add(Utilities.getTitulo("Titulo2"));
+		listTitulos.add(Utilities.getTitulo("Titulo3"));
+		return listTitulos;
 	}
 
 }
