@@ -5,24 +5,23 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.Titulo;
-import io.swagger.annotations.*;
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.Titulo;
 
 @Api(value = "titulo", description = "the titulo API")
+@RequestMapping(value = "/titulo", produces = { "application/json" })
 public interface TituloApi {
 
 	@ApiOperation(value = "agregar un nuevo título", nickname = "agregarTitulo", notes = "Agregar un nuevo título", tags={ "administradores", })
@@ -30,7 +29,7 @@ public interface TituloApi {
 		@ApiResponse(code = 201, message = "Título creado"),
 		@ApiResponse(code = 400, message = "objeto invalido"),
 		@ApiResponse(code = 409, message = "ya existe un título con este id") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		consumes = { "application/json" },
 		method = RequestMethod.POST)
@@ -41,7 +40,7 @@ public interface TituloApi {
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Devuelver el resultado obtenido", response = Titulo.class),
 		@ApiResponse(code = 400, message = "parametro incorrecto") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.GET)
 	ResponseEntity<Titulo> buscarTitulo(@ApiParam(value = "id del título a buscar",required=true) @PathVariable("idTitulo") String idTitulo);
@@ -52,7 +51,7 @@ public interface TituloApi {
 		@ApiResponse(code = 200, message = "Ok"),
 		@ApiResponse(code = 400, message = "id de título inválido"),
 		@ApiResponse(code = 404, message = "id de título no encontrado") })
-	@RequestMapping(value = "/titulo/{idTitulo}",
+	@RequestMapping(value = "/{idTitulo}",
 		produces = { "application/json" }, 
 		method = RequestMethod.DELETE)
 	ResponseEntity<Void> eliminarTitulo(@ApiParam(value = "id del título a eliminar",required=true) @PathVariable("idTitulo") String idTitulo);
